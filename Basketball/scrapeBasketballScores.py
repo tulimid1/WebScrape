@@ -6,6 +6,9 @@ import seaborn as sns
 import savingfigures as sf
 import os
 
+plt.style.use(["ggplot", "dark_background"])
+plt.rcParams.update({"font.size": 20, "lines.linewidth": 5})
+
 
 class scrapeBasketballScores:
 
@@ -22,7 +25,9 @@ class scrapeBasketballScores:
         score_dict = self.get_team_scores(game_number=game_number)
         for (team_name, score_values) in score_dict.items():
             sns.lineplot(
-                x=self.get_quarters_played(game_number=game_number), y=np.cumsum(score_values), label=team_name
+                x=self.get_quarters_played(game_number=game_number),
+                y=np.cumsum(score_values),
+                label=team_name,
             )
         plt.xlabel("Quarter")
         plt.ylabel("Score")
@@ -33,7 +38,7 @@ class scrapeBasketballScores:
             + " ["
             + str(np.sum(score_dict[team_names_abbrev[0]]))
             + "]"
-            + " vs. "
+            + "\n"
             + team_names_full[1]
             + " ["
             + str(np.sum(score_dict[team_names_abbrev[1]]))
